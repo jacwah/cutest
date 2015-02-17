@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 #include "CuTest.h"
 
@@ -159,6 +160,7 @@ void TestCuTestNew(CuTest* tc)
 	CuAssertTrue(tc, tc2->function == TestPasses);
 	CuAssertTrue(tc, tc2->ran == 0);
 	CuAssertTrue(tc, tc2->jumpBuf == NULL);
+	CuAssertTrue(tc, tc2->parents == 0);
 }
 
 
@@ -172,6 +174,27 @@ void TestCuTestInit(CuTest *tc)
 	CuAssertTrue(tc, tc2.function == TestPasses);
 	CuAssertTrue(tc, tc2.ran == 0);
 	CuAssertTrue(tc, tc2.jumpBuf == NULL);
+	CuAssertTrue(tc, tc2.parents == 0);
+}
+
+void TestCuTestCopy(CuTest* tc)
+{
+	CuTest* tc2 = CuTestNew("MyTest", TestPasses);
+	CuTest* tc3 = CuTestCopy(tc2);
+
+	CuAssertTrue(tc, tc2 != tc3);
+	CuAssertTrue(tc, tc2->function == tc3->function);
+	CuAssertTrue(tc, tc3->function == TestPasses);
+	CuAssertStrEquals(tc, tc2->name, tc3->name);
+	CuAssertStrEquals(tc, tc3->name, "MyTest");
+}
+
+void TestCuTestDelete(CuTest* tc)
+{
+	CuTest* tc2 = CuTestNew("MyTest", TestPasses);
+	tc2->parents = 2;
+	CuTestDelete(tc2);
+	CuAssertTrue(tc, tc->parents == 1);
 }
 
 void TestCuAssert(CuTest* tc)
@@ -294,6 +317,19 @@ void TestCuSuiteAddTest(CuTest* tc)
 	CuAssertTrue(tc, ts.count == 1);
 
 	CuAssertStrEquals(tc, "MyTest", ts.list[0]->name);
+}
+
+void TestCuSuiteAdd_ParentOverflow(CuTest* tc)
+{
+	CuSuite ts;
+	CuTest tc2;
+
+	CuSuiteInit(&ts);
+	CuTestInit(&tc2, "MyTest", zTestFails);
+	tc2.parents = INT_MAX;
+
+	CuSuiteAdd(&ts, &tc2);
+	CuAssertTrue(tc, tc2.parents != INT_MAX + 1);
 }
 
 void TestCuSuiteAddSuite(CuTest* tc)
@@ -694,6 +730,8 @@ CuSuite* CuGetSuite(void)
 
 	SUITE_ADD_TEST(suite, TestCuTestNew);
 	SUITE_ADD_TEST(suite, TestCuTestInit);
+	SUITE_ADD_TEST(suite, TestCuTestCopy);
+	SUITE_ADD_TEST(suite, TestCuTestDelete);
 	SUITE_ADD_TEST(suite, TestCuAssert);
 	SUITE_ADD_TEST(suite, TestCuAssertPtrEquals_Success);
 	SUITE_ADD_TEST(suite, TestCuAssertPtrEquals_Failure);
@@ -704,6 +742,7 @@ CuSuite* CuGetSuite(void)
 	SUITE_ADD_TEST(suite, TestCuSuiteInit);
 	SUITE_ADD_TEST(suite, TestCuSuiteNew);
 	SUITE_ADD_TEST(suite, TestCuSuiteAddTest);
+	SUITE_ADD_TEST(suite, TestCuSuiteAdd_ParentOverflow);
 	SUITE_ADD_TEST(suite, TestCuSuiteAddSuite);
 	SUITE_ADD_TEST(suite, TestCuSuiteRun);
 	SUITE_ADD_TEST(suite, TestCuSuiteSummary);

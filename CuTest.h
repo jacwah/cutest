@@ -53,12 +53,14 @@ struct CuTest
 	TestFunction function;
 	int failed;
 	int ran;
+	int parents;
 	const char* message;
 	jmp_buf *jumpBuf;
 };
 
 void CuTestInit(CuTest* t, const char* name, TestFunction function);
 CuTest* CuTestNew(const char* name, TestFunction function);
+CuTest* CuTestCopy(CuTest* t);
 void CuTestRun(CuTest* tc);
 void CuTestDelete(CuTest *t);
 

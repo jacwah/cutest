@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <limits.h>
 
 #include "CuTest.h"
 
@@ -121,6 +122,7 @@ void CuTestInit(CuTest* t, const char* name, TestFunction function)
 	t->name = CuStrCopy(name);
 	t->failed = 0;
 	t->ran = 0;
+	t->parents = 0;
 	t->message = NULL;
 	t->function = function;
 	t->jumpBuf = NULL;
@@ -133,11 +135,21 @@ CuTest* CuTestNew(const char* name, TestFunction function)
 	return tc;
 }
 
+CuTest* CuTestCopy(CuTest* t)
+{
+	CuTest* copy = CU_ALLOC(CuTest);
+	memcpy(copy, t, sizeof(CuTest));
+	return copy;
+}
+
 void CuTestDelete(CuTest *t)
 {
-        if (!t) return;
-        free(t->name);
-        free(t);
+	if (!t) return;
+	if (--t->parents < 1)
+	{
+		free(t->name);
+		free(t);
+    }
 }
 
 void CuTestRun(CuTest* tc)
@@ -275,6 +287,14 @@ void CuSuiteAdd(CuSuite* testSuite, CuTest *testCase)
 	assert(testSuite->count < MAX_TEST_CASES);
 	testSuite->list[testSuite->count] = testCase;
 	testSuite->count++;
+	if (testCase->parents != INT_MAX)
+	{
+		testCase->parents++;
+	}
+	else
+	{
+		testCase = CuTestCopy(testCase);
+	}
 }
 
 void CuSuiteAddSuite(CuSuite* testSuite, CuSuite* testSuite2)
