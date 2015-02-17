@@ -1,3 +1,10 @@
+/*-------------------------------------------------------------------------*
+ * Copyright (c) 2003 Asim Jalis
+ *
+ * Additional modifications made by
+ * - Jacob Wahlgren 2015
+ *-------------------------------------------------------------------------*/
+
 #include <assert.h>
 #include <setjmp.h>
 #include <stdlib.h>
