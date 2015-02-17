@@ -307,6 +307,12 @@ void CuSuiteAddSuite(CuSuite* testSuite, CuSuite* testSuite2)
 	}
 }
 
+void CuSuiteConsume(CuSuite* testSuite, CuSuite* testSuite2)
+{
+	CuSuiteAddSuite(testSuite, testSuite2);
+	CuSuiteDelete(testSuite2);
+}
+
 void CuSuiteRun(CuSuite* testSuite)
 {
 	int i;
