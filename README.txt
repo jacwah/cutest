@@ -81,12 +81,15 @@ Create another file called AllTests.c with these contents:
         CuString *output = CuStringNew();
         CuSuite* suite = CuSuiteNew();
         
-        CuSuiteAddSuite(suite, StrUtilGetSuite());
+        CuSuiteConsume(suite, StrUtilGetSuite());
     
         CuSuiteRun(suite);
         CuSuiteSummary(suite, output);
         CuSuiteDetails(suite, output);
         printf("%s\n", output->buffer);
+
+        CuStringDelete(output);
+        CuSuiteDelete(suite);
     }
     
     int main(void) {
