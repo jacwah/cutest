@@ -149,7 +149,7 @@ void CuTestDelete(CuTest *t)
 	{
 		free(t->name);
 		free(t);
-    }
+	}
 }
 
 void CuTestRun(CuTest* tc)

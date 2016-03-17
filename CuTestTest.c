@@ -194,7 +194,8 @@ void TestCuTestDelete(CuTest* tc)
 	CuTest* tc2 = CuTestNew("MyTest", TestPasses);
 	tc2->parents = 2;
 	CuTestDelete(tc2);
-	CuAssertTrue(tc, tc->parents == 1);
+	CuAssertTrue(tc, tc2->parents == 1);
+	CuTestDelete(tc2);
 }
 
 void TestCuAssert(CuTest* tc)
