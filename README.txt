@@ -73,6 +73,7 @@ contents:
     
 Create another file called AllTests.c with these contents:
 
+    #include <stdio.h>
     #include "CuTest.h"
     
     CuSuite* StrUtilGetSuite();
