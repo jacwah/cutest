@@ -148,6 +148,7 @@ void CuTestDelete(CuTest *t)
 	if (--t->parents < 1)
 	{
 		free(t->name);
+		free(t->message);
 		free(t);
 	}
 }

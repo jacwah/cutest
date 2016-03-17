@@ -54,7 +54,7 @@ struct CuTest
 	int failed;
 	int ran;
 	int parents;
-	const char* message;
+	char* message;
 	jmp_buf *jumpBuf;
 };
 
