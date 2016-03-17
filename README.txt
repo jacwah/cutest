@@ -101,7 +101,7 @@ executable.
 
 This will print an error because we haven't implemented the
 StrToUpper function correctly. We are just returning the string
-without changing it to upper case. 
+without changing it to upper case.
 
     char* StrToUpper(char* str) {
         return str;
