@@ -96,15 +96,8 @@ Create another file called AllTests.c with these contents:
         RunAllTests();
     }
 
-Then type this on the command line:
-
-    gcc AllTests.c CuTest.c StrUtil.c
-
-to compile. You can replace gcc with your favorite compiler.
-CuTest should be portable enough to handle all Windows and Unix
-compilers. Then to run the tests type:
-
-    a.out
+Compile AllTests.c, CuTest.c and StrUtil.c and run the resulting
+executable.
 
 This will print an error because we haven't implemented the
 StrToUpper function correctly. We are just returning the string
