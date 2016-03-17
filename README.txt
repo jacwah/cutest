@@ -211,3 +211,4 @@ Thanks!
 - [04.17.2009] Tobias Lippert <herrmarder@googlemail.com>
 - [11.13.2009] Eli Bendersky <eliben@gmail.com>
 - [12.14.2009] Andrew Brown <abrown@datasci.com>
+- [02.17.2015] Jacob Wahlgren <jacob.wahlgren@gmail.com>
