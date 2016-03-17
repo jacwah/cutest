@@ -71,7 +71,9 @@ contents:
         return suite;
     }
     
-Create another file called AllTests.c with these contents:
+Create another file called AllTests.c with the following contents.
+You can use the existing AllTests.c in this directory as a template
+if you wish.
 
     #include <stdio.h>
     #include "CuTest.h"
