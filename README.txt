@@ -8,6 +8,9 @@ Your unit tests are an investment. They let you to change your
 code and add new features confidently without worrying about
 accidentally breaking earlier features.
 
+This is a branch of the original CuTest containing additions and
+fixes for writing memory leak free tests. The original version is
+hosted at http://cutest.sourceforge.net/.
 
 LICENSING
 
