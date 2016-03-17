@@ -2,7 +2,7 @@
  * Copyright (c) 2003 Asim Jalis
  *
  * Additional modifications made by
- * - Jacob Wahlgren 2015
+ * - Jacob Wahlgren 2015-2016
  *-------------------------------------------------------------------------*/
 
 #include <assert.h>
